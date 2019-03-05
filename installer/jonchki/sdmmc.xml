@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jonchki-artifact version="1.0">
+	<info group="org.muhkuh.tests"
+	      module="sdmmc"
+	      artifact="lua5.1-sdmmc"
+	      version="${PROJECT_VERSION}"
+	      vcs-id="${PROJECT_VERSION_VCS}"
+	      extension="zip">
+		<license name="GPL-2.0"/>
+		<author name="Muhkuh team" url="https://github.com/muhkuh-sys" />
+		<description>
+			The SDMMC test identifies a card and reads the first sector.
+		</description>
+	</info>
+	<dependencies>
+		<dependency group="org.muhkuh.tools" module="muhkuh_base_cli" artifact="lua5.1-muhkuh_base_cli" version="2.2"/>
+		<dependency group="com.github.stevedonovan" module="penlight" artifact="penlight" version="1.5.4"/>
+		<dependency group="com.github.moteus" module="lua-log" artifact="lua-log" version="0.1.6"/>
+	</dependencies>
+</jonchki-artifact>
