@@ -172,10 +172,10 @@ tArtifact0Pom = atEnv.DEFAULT.ArtifactVersion(os.path.join(strModulePath, '%s-%s
 #
 atCopyFiles = {
     # Copy all binaries.
-#    'targets/testbench/netx/spi_macro_test_netx50.bin':             atBin['netX50'],
-#    'targets/testbench/netx/spi_macro_test_netx56.bin':             atBin['netX56'],
-#    'targets/testbench/netx/spi_macro_test_netx90.bin':             atBin['netX90_MPW'],
-    'targets/testbench/netx/spi_macro_test_netx4000.bin':           atBin['netX4000'],
+#    'targets/testbench/netx/sdmmc_test_netx50.bin':             atBin['netX50'],
+#    'targets/testbench/netx/sdmmc_test_netx56.bin':             atBin['netX56'],
+#    'targets/testbench/netx/sdmmc_test_netx90.bin':             atBin['netX90_MPW'],
+    'targets/testbench/netx/sdmmc_test_netx4000.bin':           atBin['netX4000'],
 
     # Copy the LUA module.
     # NOTE: All files should be the same, just take the netX50 build.
