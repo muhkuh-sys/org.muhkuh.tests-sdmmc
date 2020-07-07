@@ -7,6 +7,9 @@ function TestClassSdmmc:_init(strTestName, uiTestCase, tLogWriter, strLogLevel)
 
   local P = self.P
   self:__parameter {
+    P:P('plugin', 'A pattern for the plugin to use.'):
+      required(false),
+
     P:U32('capacity_kb_min', 'The minimum allowed capacity of the card in kilobytes. A 0 sets no minimum border.'):
       default(0),
 
@@ -25,6 +28,8 @@ function TestClassSdmmc:run()
   --
   -- Parse the parameters and collect all options.
   --
+  local strPluginPattern = atParameter['plugin']:get()
+
   local strCapacityKbMin = atParameter["capacity_kb_min"]:get()
   local ulCapacityKbMin = tonumber(strCapacityKbMin)
   if ulCapacityKbMin==nil then
