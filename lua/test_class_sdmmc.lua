@@ -60,7 +60,7 @@ function TestClassSdmmc:run()
   -- Open the connection to the netX.
   -- (or re-use an existing connection.)
   --
-  local tPlugin = tester.getCommonPlugin()
+  local tPlugin = _G.tester:getCommonPlugin(strPluginPattern)
   if tPlugin==nil then
     error("No plug-in selected, nothing to do!")
   end
@@ -92,7 +92,7 @@ function TestClassSdmmc:run()
     ulCapacityKbMin,
     ulCapacityKbMax
   }
-  local ulResult = tester.mbin_simple_run(nil, tPlugin, strNetxBinary, aParameter)
+  local ulResult = _G.tester:mbin_simple_run(tPlugin, strNetxBinary, aParameter)
   if ulResult~=0 then
     error('The test failed with return code:' .. ulResult)
   end
