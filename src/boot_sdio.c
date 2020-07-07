@@ -1826,8 +1826,9 @@ int boot_sdio(const SDIO_BOOT_OPTIONS_T *ptSdioOptions, const TEST_PARAMETER_T *
 		 * With IMCLK=50MHz this is 1024*20ns = 20480ns.
 		 * These are 20480ns/5ns = 4096 ticks.
 		 */
-		ulValue = (1024 * (1000000000/SDIO_IMCLK_Hz)) / NX4000_GLOBAL_TIMER_TICK_NS;
-		cr7_global_timer_delay_ticks(ulValue);
+//		ulValue = (1024 * (1000000000/SDIO_IMCLK_Hz)) / NX4000_GLOBAL_TIMER_TICK_NS;
+//		cr7_global_timer_delay_ticks(ulValue);
+		cr7_global_timer_delay_ms(2000);
 
 		/* Check if a SD card is present with "ISD0CD state". */
 		ulValue  = ptRAPSDIOArea->ulSDIO_SD_INFO1;
