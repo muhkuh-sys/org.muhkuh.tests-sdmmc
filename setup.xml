@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="mbs/setup2html.xsl"?>
 
-<muhkuh_buildsystem project="org.muhkuh.tests-sdmmc">
+<muhkuh_buildsystem group="org.muhkuh.tests" module="sdmmc">
 	<project_version>1.0.2</project_version>
 
 	<scons>

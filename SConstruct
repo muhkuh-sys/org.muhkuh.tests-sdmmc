@@ -82,7 +82,7 @@ astrIncludePaths = ['src', '#platform/src', '#platform/src/lib', '/tmp/targets/v
 
 
 atBuildConfigurations = {
-    'netX4000': {
+    'netx4000': {
         'ENV': atEnv.NETX4000,
         'LD': 'src/netx4000/netx4000_intram.ld',
         'SRC': sources_common + sources_netx4000,
@@ -101,6 +101,8 @@ atLua = {}
 for strBuildName, atBuildAttributes in atBuildConfigurations.items():
     # Get a clean environment.
     tEnv = atBuildAttributes['ENV'].Clone()
+    # Create a compile commands file.
+    tEnv.CompileDb(os.path.join('targets', strBuildName, 'compile_commands.json'))
     # Set the include paths.
     tEnv.Append(CPPPATH = astrIncludePaths)
     # Set the linker description file.
@@ -148,7 +150,7 @@ tArcList0.AddFiles('netx/',
 #    atBin['netX56'],
 #    atBin['netX90_MPW'],
 #    atBin['netX90'],
-    atBin['netX4000'])
+    atBin['netx4000'])
 tArcList0.AddFiles('lua/',
     'lua/test_class_sdmmc.lua')
 tArcList0.AddFiles('templates/',
@@ -175,7 +177,7 @@ atCopyFiles = {
 #    'targets/testbench/netx/sdmmc_test_netx50.bin':             atBin['netX50'],
 #    'targets/testbench/netx/sdmmc_test_netx56.bin':             atBin['netX56'],
 #    'targets/testbench/netx/sdmmc_test_netx90.bin':             atBin['netX90_MPW'],
-    'targets/testbench/netx/sdmmc_test_netx4000.bin':           atBin['netX4000'],
+    'targets/testbench/netx/sdmmc_test_netx4000.bin':           atBin['netx4000'],
 
     # Copy the LUA module.
     # NOTE: All files should be the same, just take the netX50 build.
