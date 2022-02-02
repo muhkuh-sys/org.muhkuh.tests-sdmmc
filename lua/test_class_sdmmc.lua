@@ -5,9 +5,14 @@ local TestClassSdmmc = class(TestClass)
 function TestClassSdmmc:_init(strTestName, uiTestCase, tLogWriter, strLogLevel)
   self:super(strTestName, uiTestCase, tLogWriter, strLogLevel)
 
+  self.json = require 'dkjson'
+
   local P = self.P
   self:__parameter {
     P:P('plugin', 'A pattern for the plugin to use.'):
+      required(false),
+
+    P:P('plugin_options', 'Plugin options as a JSON object.'):
       required(false),
 
     P:U32('capacity_kb_min', 'The minimum allowed capacity of the card in kilobytes. A 0 sets no minimum border.'):
@@ -23,12 +28,14 @@ end
 function TestClassSdmmc:run()
   local atParameter = self.atParameter
   local tLog = self.tLog
+  local json = self.json
 
   ----------------------------------------------------------------------
   --
   -- Parse the parameters and collect all options.
   --
   local strPluginPattern = atParameter['plugin']:get()
+  local strPluginOptions = atParameter['plugin_options']:get()
 
   local strCapacityKbMin = atParameter["capacity_kb_min"]:get()
   local ulCapacityKbMin = tonumber(strCapacityKbMin)
@@ -60,9 +67,20 @@ function TestClassSdmmc:run()
   -- Open the connection to the netX.
   -- (or re-use an existing connection.)
   --
-  local tPlugin = _G.tester:getCommonPlugin(strPluginPattern)
+  local atPluginOptions = {}
+  if strPluginOptions~=nil then
+    local tJson, uiPos, strJsonErr = json.decode(strPluginOptions)
+    if tJson==nil then
+      tLog.warning('Ignoring invalid plugin options. Error parsing the JSON: %d %s', uiPos, strJsonErr)
+    else
+      atPluginOptions = tJson
+    end
+  end
+  local tPlugin = _G.tester:getCommonPlugin(strPluginPattern, atPluginOptions)
   if tPlugin==nil then
-    error("No plug-in selected, nothing to do!")
+    local strPluginOptions = pl.pretty.write(atPluginOptions)
+    local strError = string.format('Failed to establish a connection to the netX with pattern "%s" and options "%s".', strPluginPattern, strPluginOptions)
+    error(strError)
   end
 
   local astrBinaryName = {
