@@ -763,7 +763,7 @@ static SDIO_RESULT_T sdio_read_csd_register(SDIO_HANDLE_T *ptSdioHandle, unsigne
 	/* Read 16 bytes. */
 	ptRAPSDIOArea->ulSDIO_SD_SIZE = 16;
 
-	tResult = send_cmd(ptSdioHandle, RAPSDIO_CMD09, ptSdioHandle->ulRCA);
+	tResult = send_cmd(ptSdioHandle, RAPSDIO_CMD09, 0);
 	if( tResult==SDIO_RESULT_Ok )
 	{
 		/* This is an R2 response.
@@ -974,7 +974,7 @@ static SDIO_RESULT_T set_card_to_transfer_mode(SDIO_HANDLE_T *ptHandle)
 	SDIO_RESULT_T tResult;
 
 
-	tResult = send_cmd(ptHandle, RAPSDIO_CMD07, ptHandle->ulRCA);
+	tResult = send_cmd(ptHandle, RAPSDIO_CMD07, 0);
 	if( tResult!=SDIO_RESULT_Ok )
 	{
 		uprintf("Failed to set the card into transfer mode.\n");
@@ -1853,6 +1853,12 @@ int boot_sdio(const SDIO_BOOT_OPTIONS_T *ptSdioOptions, const TEST_PARAMETER_T *
 			else
 			{
 				iResult = sdio_read_sector(&tSdioHandle, 0, aulSector);
+				if( iResult==0 )
+				{
+					/* Show a hexdump of the sector. */
+					uprintf("Data from card:\n");
+					hexdump((const unsigned char*)aulSector, sizeof(aulSector));
+				}
 //				tBootResult = boot_from_filesystem(g_t_romloader_options.tSdioOptions.atFileName, sdio_read_sector, sdio_restart, &tSdioHandle);
 			}
 		}
